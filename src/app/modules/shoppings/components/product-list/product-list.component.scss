@@ -1,0 +1,38 @@
+@use "src/var";
+
+.sl-list-item {
+  grid-template-columns: 2.5rem 1fr 2.5rem;
+}
+
+.sl-product-list {
+  &-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  //
+  //&-category {
+  //  display: flex;
+  //  align-items: center;
+  //  gap: 1rem;
+  //  font-size: 1.25rem;
+  //  font-weight: 300;
+  //}
+  //
+  //&-products {
+  //  margin: 0 0 0 calc(var(--category-size) - 28px);
+  //  padding: 0;
+  //  list-style: none;
+  //}
+  //
+  //&-product {
+  //  margin-bottom: 1rem;
+  //
+  //  &-button {
+  //    width: 100%;
+  //    display: flex;
+  //    align-items: center;
+  //    gap: 1rem;
+  //  }
+  //}
+}

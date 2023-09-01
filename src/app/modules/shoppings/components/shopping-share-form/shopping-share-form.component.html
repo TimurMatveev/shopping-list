@@ -1,0 +1,84 @@
+<form
+  [id]="formId"
+  [formGroup]="shoppingForm"
+  class="sl-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="shoppingForm.controls.name as nameControl"
+    class="sl-form-control"
+  >
+    <mat-label>
+      {{ 'shoppings.form.name.label' | translate }}
+    </mat-label>
+    <input
+      matInput
+      required
+      [formControl]="nameControl"
+      [placeholder]="'shoppings.form.name.placeholder' | translate"
+    >
+    <mat-error *ngIf="nameControl.invalid">
+      {{ nameControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="showUser && shoppingForm.controls.userId as userIdControl"
+    class="sl-form-control"
+  >
+    <mat-label>
+      {{ 'shoppings.form.user.label' | translate }}
+    </mat-label>
+    <mat-select [formControl]="userIdControl">
+      <mat-select-trigger>
+        <sl-avatar [name]="user.name"></sl-avatar>
+        {{ user.name }}
+      </mat-select-trigger>
+      <mat-option [value]="user.id">
+        {{ user.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="userIdControl.invalid">
+      {{ userIdControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <sl-form-array
+    class="sl-form-control mod-full"
+    [formArray]="shoppingForm.controls.products"
+    [createControl]="createProductFormGroup"
+    [items]="shopping?.products || []"
+    [minLength]="minProductsCount"
+    [addText]="'shoppings.form.product.add' | translate"
+  >
+    <ng-container
+      *slFormArrayItem="shoppingForm.controls.products; let productFormGroup"
+      [formGroup]="productFormGroup"
+    >
+      <sl-category-select
+        class="sl-form-control"
+        [control]="productFormGroup.controls.categoryId"
+        [label]="'shoppings.form.product.category.label' | translate"
+        [categories]="categoryService.all$ | async"
+      ></sl-category-select>
+
+      <mat-form-field
+        *ngIf="productFormGroup.controls.name as productNameControl"
+        class="sl-form-control"
+      >
+        <mat-label>
+          {{ 'shoppings.form.product.name.label' | translate }}
+        </mat-label>
+        <input
+          matInput
+          required
+          [formControl]="productNameControl"
+          [placeholder]="'shoppings.form.product.name.placeholder' | translate"
+        >
+        <mat-error *ngIf="productNameControl.invalid">
+          {{ productNameControl | slControlError | async }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+  </sl-form-array>
+</form>

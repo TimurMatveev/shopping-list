@@ -1,0 +1,43 @@
+@use 'src/var';
+
+:host {
+  display: block;
+  height: 100%;
+  position: relative;
+  overflow: auto;
+
+  &.mod-centered {
+    justify-content: center;
+  }
+}
+
+.sl-page {
+  padding: 1rem 1.5rem 2rem;
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+
+  &-upper-header {
+    padding: 1rem 1rem 0;
+    margin: -1rem -1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var.$colorBaseBackground;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &.mod-wide {
+    max-width: var(--sl-page-wide);
+  }
+
+  &.mod-narrow {
+    max-width: var(--sl-page-narrow);
+  }
+}

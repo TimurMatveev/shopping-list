@@ -1,0 +1,101 @@
+<form
+  [id]="formId"
+  [formGroup]="shoppingFilterForm"
+  class="sl-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="shoppingFilterForm.controls.createdAt as createdAtGroup"
+    class="sl-form-control"
+  >
+    <mat-label>
+      {{ 'shoppings.filter.status.label' | translate }}
+    </mat-label>
+    <mat-select [formControl]="shoppingFilterForm.controls.status">
+      <mat-option [value]="null">
+        <sl-status color="#ddd">
+          {{ 'shoppings.filter.status.all' | translate }}
+        </sl-status>
+      </mat-option>
+      <mat-option
+        *ngFor="let status of shoppingStatuses; trackBy: trackByShoppingStatus"
+        [value]="status"
+      >
+        <sl-shopping-status [status]="status"></sl-shopping-status>
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="createdAtGroup.invalid">
+      {{ createdAtGroup | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="shoppingFilterForm.controls.createdAt as createdAtGroup"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'shoppings.filter.createAt.label' | translate }}
+    </mat-label>
+    <mat-date-range-input
+      [formGroup]="createdAtGroup"
+      [rangePicker]="picker"
+    >
+      <input
+        matStartDate
+        [formControl]="createdAtGroup.controls.start"
+        [placeholder]="'shoppings.filter.createAt.start.placeholder' | translate"
+      >
+      <input
+        matEndDate
+        [formControl]="createdAtGroup.controls.end"
+        [placeholder]="'shoppings.filter.createAt.end.placeholder' | translate"
+      >
+    </mat-date-range-input>
+    <mat-hint>
+      {{ 'form.dateRange.hint' | translate }}
+    </mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="createdAtGroup.invalid">
+      {{ createdAtGroup | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="shoppingFilterForm.controls.updatedAt as updatedAtGroup"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'shoppings.filter.updatedAt.label' | translate }}
+    </mat-label>
+    <mat-date-range-input
+      [formGroup]="updatedAtGroup"
+      [rangePicker]="picker"
+    >
+      <input
+        matStartDate
+        [formControl]="updatedAtGroup.controls.start"
+        [placeholder]="'shoppings.filter.updatedAt.start.placeholder' | translate"
+      >
+      <input
+        matEndDate
+        [formControl]="updatedAtGroup.controls.end"
+        [placeholder]="'shoppings.filter.updatedAt.end.placeholder' | translate"
+      >
+    </mat-date-range-input>
+    <mat-hint>
+      {{ 'form.dateRange.hint' | translate }}
+    </mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="updatedAtGroup.invalid">
+      {{ updatedAtGroup | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+</form>

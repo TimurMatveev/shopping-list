@@ -1,0 +1,16 @@
+.sl-form-array {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+
+  &-delete,
+  &-drag {
+    margin: 0.25rem -1.5rem;
+    justify-self: center;
+  }
+
+  &-add {
+    grid-column: 2 / -2;
+  }
+}

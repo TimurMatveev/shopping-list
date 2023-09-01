@@ -1,0 +1,48 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="userMenu"
+>
+  <mat-icon fontIcon="menu"></mat-icon>
+</button>
+
+<mat-menu #userMenu="matMenu" xPosition="before">
+  <div class="sl-user-menu-avatar">
+    <sl-avatar
+      [url]="user.avatar"
+      [name]="user.name"
+    ></sl-avatar>
+
+    <span>{{ user.name }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <button
+    mat-menu-item
+    [matMenuTriggerFor]="languageMenu"
+  >
+    <mat-icon fontIcon="language"></mat-icon>
+    {{ 'common.language' | translate }}
+  </button>
+
+  <mat-menu #languageMenu="matMenu" xPosition="before">
+    <button
+      *ngFor="let language of languages; trackBy: trackByLanguage"
+      mat-menu-item
+      (click)="translateService.use(language)"
+    >
+      <mat-icon [fontIcon]="(localeService.selected$ | async) === language ? 'check' : ''"></mat-icon>
+      {{ ('language.' + language) | translate }}
+    </button>
+  </mat-menu>
+
+  <mat-divider></mat-divider>
+
+  <button
+    mat-menu-item
+    (click)="logout.emit()"
+  >
+    <mat-icon fontIcon="logout"></mat-icon>
+    {{ 'common.logout' | translate }}
+  </button>
+</mat-menu>

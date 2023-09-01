@@ -1,0 +1,114 @@
+<form
+  [id]="formId"
+  [formGroup]="categoryForm"
+  class="sl-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="categoryForm.controls.key as keyControl"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'categories.form.key.label' | translate }}
+    </mat-label>
+    <input
+      matInput
+      required
+      [maxlength]="keyMaxLength"
+      [formControl]="keyControl"
+      [placeholder]="'categories.form.key.placeholder' | translate"
+    >
+    <mat-hint align="start">
+      {{ 'categories.form.key.hint' | translate }}
+    </mat-hint>
+    <mat-hint align="end">
+      {{
+        keyControl.pending
+          ? ('form.validating' | translate)
+          : (keyControl.value.length + ' / ' + keyMaxLength)
+      }}
+    </mat-hint>
+    <mat-error *ngIf="keyControl.invalid">
+      {{ keyControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <ng-container *ngFor="let language of languages; trackBy: trackByLanguage">
+    <mat-form-field
+      *ngIf="categoryForm.controls.name.controls[language] as nameControl"
+      class="sl-form-control"
+    >
+      <mat-label>
+        {{ 'categories.form.name.label' | translate:{language} }}
+      </mat-label>
+      <input
+        matInput
+        required
+        [maxlength]="nameMaxLength"
+        [formControl]="nameControl"
+        [placeholder]="'categories.form.name.placeholder' | translate:{language}"
+      >
+      <mat-hint align="end">
+        {{ nameControl.value.length + ' / ' + nameMaxLength }}
+      </mat-hint>
+      <mat-error *ngIf="nameControl.invalid">
+        {{ nameControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+
+  <mat-form-field
+    *ngIf="categoryForm.controls.image as imageControl"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'categories.form.image.label' | translate }}
+    </mat-label>
+    <sl-img-src-control
+      required
+      [formControl]="imageControl"
+      [placeholder]="'categories.form.image.placeholder' | translate"
+    ></sl-img-src-control>
+    <mat-hint
+      *ngIf="imageControl.value as url"
+      align="end"
+    >
+      {{ url.length + ' / ' + imageUrlMaxLength }}
+    </mat-hint>
+    <mat-error *ngIf="imageControl.invalid">
+      {{ imageControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="categoryForm.controls.tags as tagsControl"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'categories.form.tags.label' | translate }}
+    </mat-label>
+    <mat-chip-grid
+      #chipGrid
+      #arrayFormControl="ArrayFormControl"
+      [slArrayFormControl]="tagsControl"
+      [formControl]="tagsControl"
+    >
+      <mat-chip-row
+        *ngFor="let tag of tagsControl.value; trackBy: trackByTag; let index = index"
+        (removed)="arrayFormControl.removeItem(index)"
+      >
+        {{ tag }}
+
+        <button matChipRemove>
+          <mat-icon fontIcon="cancel"></mat-icon>
+        </button>
+      </mat-chip-row>
+      <input
+        [placeholder]="'categories.form.tags.placeholder' | translate"
+        [matChipInputFor]="chipGrid"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="arrayFormControl.addItem($event.value.trim().toLowerCase()); $event.chipInput.clear()"
+      />
+    </mat-chip-grid>
+  </mat-form-field>
+</form>

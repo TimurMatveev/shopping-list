@@ -1,0 +1,19 @@
+<sl-avatar
+  *ngFor="let avatar of shownAvatars; trackBy: trackByAvatar; let first = first"
+  [url]="avatar.url"
+  [name]="avatar.name"
+  [size]="size"
+  [style.margin-left.px]="first ? 0 : -size / 2"
+  [matTooltip]="getTooltipText([avatar])"
+></sl-avatar>
+
+<div
+  *ngIf="hiddenAvatars.length"
+  class="sl-avatar-list-rest"
+  [style.width.px]="size"
+  [style.height.px]="size"
+  [style.margin-left.px]="-size / 2"
+  [matTooltip]="getTooltipText(hiddenAvatars)"
+>
+  +{{ hiddenAvatars.length }}
+</div>

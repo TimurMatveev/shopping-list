@@ -1,0 +1,48 @@
+<sl-expandable-list
+  [items]="users"
+  [trackBy]="trackByUser"
+>
+  <div
+    *slExpansionItemHead="users; let user"
+    class="sl-list-item"
+  >
+    <sl-avatar
+      [url]="user.avatar"
+      [name]="user.name"
+      [size]="36"
+    ></sl-avatar>
+
+    {{ user.name }}
+  </div>
+
+  <ng-container
+    *slExpansionItemActions="let user; let index = index"
+  >
+    <button
+      mat-icon-button
+      (click)="deleteUser.emit({ item: user, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      (click)="editUser.emit({ item: user, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
+
+    <a
+      mat-icon-button
+      [routerLink]="['shopping', user.id, 'lists']"
+      [relativeTo]="null"
+    >
+      <mat-icon fontIcon="format_list_bulleted"></mat-icon>
+    </a>
+  </ng-container>
+
+  <sl-user-list-item
+    *slExpansionItemBody="users; let user"
+    [user]="user"
+  ></sl-user-list-item>
+</sl-expandable-list>

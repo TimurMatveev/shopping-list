@@ -1,0 +1,146 @@
+<form
+  [formGroup]="signUpForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h1 class="sl-auth-form-heading">
+    {{ 'auth.signUp' | translate }}
+  </h1>
+
+  <div class="sl-form">
+    <mat-form-field
+      *ngIf="signUpForm.controls.name as nameControl"
+      class="sl-form-control"
+    >
+      <mat-label>
+        {{ 'auth.form.name.label' | translate }}
+      </mat-label>
+      <input
+        matInput
+        required
+        [formControl]="nameControl"
+        [placeholder]="'auth.form.name.placeholder' | translate"
+      >
+      <mat-hint
+        *ngIf="nameControl.value as name"
+        align="end"
+      >
+        {{ name.length + ' / ' + nameMaxLength }}
+      </mat-hint>
+      <mat-error *ngIf="nameControl.invalid">
+        {{ nameControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="signUpForm.controls.gender as genderControl"
+      class="sl-form-control"
+    >
+      <mat-label>
+        {{ 'common.gender.title' | translate }}
+      </mat-label>
+      <mat-select
+        required
+        [formControl]="genderControl"
+      >
+        <mat-option [value]="gender.Male">
+          {{ ('common.gender.' + gender.Male) | translate }}
+        </mat-option>
+        <mat-option [value]="gender.Female">
+          {{ ('common.gender.' + gender.Female) | translate }}
+        </mat-option>
+        <mat-option [value]="gender.Unknown">
+          {{ ('common.gender.' + gender.Unknown) | translate }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="genderControl.invalid">
+        {{ genderControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="signUpForm.controls.avatar as avatarControl"
+      class="sl-form-control mod-full"
+    >
+      <mat-label>
+        {{ 'auth.form.avatar.label' | translate }}
+      </mat-label>
+      <sl-img-src-control
+        [formControl]="avatarControl"
+        [placeholder]="'auth.form.avatar.placeholder' | translate"
+      ></sl-img-src-control>
+      <mat-hint
+        *ngIf="avatarControl.value as url"
+        align="end"
+      >
+        {{ url.length + ' / ' + imageUrlMaxLength }}
+      </mat-hint>
+      <mat-error *ngIf="avatarControl.invalid">
+        {{ avatarControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="signUpForm.controls.email as emailControl"
+      class="sl-form-control mod-full"
+    >
+      <mat-label>
+        {{ 'auth.form.email.label' | translate }}
+      </mat-label>
+      <input
+        type="email"
+        matInput
+        required
+        [formControl]="emailControl"
+        [placeholder]="'auth.form.email.placeholder' | translate"
+      >
+      <mat-error *ngIf="emailControl.invalid">
+        {{ emailControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="signUpForm.controls.password as passwordControl"
+      class="sl-form-control mod-full"
+    >
+      <mat-label>
+        {{ 'auth.form.password.label' | translate }}
+      </mat-label>
+      <input
+        type="password"
+        matInput
+        required
+        [formControl]="passwordControl"
+        [placeholder]="'auth.form.password.placeholder' | translate"
+      >
+      <mat-hint align="end">
+        {{ 'auth.form.password.hint' | translate:{ count: passwordMinLength } }}
+      </mat-hint>
+      <mat-error *ngIf="passwordControl.invalid">
+        {{ passwordControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="sl-auth-form-actions">
+    <div class="sl-auth-form-remember">
+      <mat-checkbox [formControl]="signUpForm.controls.keepLoggedIn">
+        {{ 'auth.form.remember' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <button
+      mat-button
+      type="reset"
+    >
+      {{ 'common.reset' | translate }}
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+    >
+      {{ 'common.create' | translate }}
+    </button>
+  </div>
+</form>

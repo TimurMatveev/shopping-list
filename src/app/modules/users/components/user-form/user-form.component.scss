@@ -1,0 +1,12 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100vw;
+  max-width: 40rem;
+}
+
+.sl-user-form-full-row {
+  grid-column: 1 / -1;
+}

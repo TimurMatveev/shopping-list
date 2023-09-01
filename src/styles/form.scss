@@ -1,0 +1,32 @@
+@mixin form-grid($columns) {
+  grid-template-columns: repeat($columns, 1fr);
+
+  .sl-form-control {
+    grid-column: span calc($columns / 2);
+  }
+}
+
+.sl-form {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+
+  @include form-grid(12);
+
+  &.mod-cols-10 {
+    @include form-grid(10);
+  }
+
+  .sl-form-control {
+    @each $span in 4, 6, 10 {
+      &.mod-span-#{$span} {
+        grid-column: span $span;
+      }
+    }
+
+    &.mod-full {
+      grid-column: 1 / -1;
+    }
+  }
+}

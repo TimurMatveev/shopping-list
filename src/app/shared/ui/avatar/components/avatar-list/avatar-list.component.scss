@@ -1,0 +1,20 @@
+@use '../../avatar.mixin';
+@use '@angular/material';
+
+:host {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+.sl-avatar-list-rest {
+  @include avatar.avatar();
+}
+
+sl-avatar,
+.sl-avatar-list-rest {
+  &:hover {
+    z-index: 1;
+    @include material.elevation(2);
+  }
+}

@@ -1,0 +1,80 @@
+<sl-page width="narrow">
+  <ng-container *ngIf="shoppingLoader.data$ | async as shopping">
+    <sl-page-header
+      [title]="shopping.name"
+      [ngSwitch]="editMode"
+    >
+      <sl-progress
+        *ngIf="editMode"
+        page-header-title-prefix
+        [value]="totalBoughtPart * 100"
+
+      ></sl-progress>
+
+      <button
+        *ngSwitchCase="false"
+        mat-icon-button
+        (click)="onDeleteShopping(shopping)"
+      >
+        <mat-icon fontIcon="delete"></mat-icon>
+      </button>
+
+      <button
+        *ngSwitchCase="false"
+        mat-icon-button
+        (click)="onEditShopping(shopping)"
+      >
+        <mat-icon fontIcon="edit"></mat-icon>
+      </button>
+
+      <button
+        *ngSwitchCase="false"
+        type="button"
+        mat-icon-button
+        [matBadge]="shopping.shareWith.length"
+        [matBadgeHidden]="!shopping.shareWith.length"
+        (click)="onShareShopping(shopping)"
+      >
+        <mat-icon fontIcon="share"></mat-icon>
+      </button>
+
+      <button
+        *ngSwitchCase="false"
+        type="button"
+        mat-icon-button
+        (click)="startShopping(shopping)"
+      >
+        <mat-icon fontIcon="shopping_cart"></mat-icon>
+      </button>
+
+      <button
+        *ngSwitchCase="true"
+        type="button"
+        mat-icon-button
+        (click)="cancelShopping(shopping)"
+      >
+        <mat-icon fontIcon="arrow_back"></mat-icon>
+      </button>
+
+      <button
+        *ngSwitchCase="true"
+        type="button"
+        mat-icon-button
+        (click)="finishShopping(shopping)"
+      >
+        <mat-icon fontIcon="shopping_cart_checkout"></mat-icon>
+      </button>
+    </sl-page-header>
+
+    <sl-product-list
+      [products]="shopping.products"
+      [editMode]="editMode"
+      (productBoughtChange)="onProductBoughtChange($event, shopping)"
+    ></sl-product-list>
+  </ng-container>
+
+  <sl-page-loading
+    *ngIf="shoppingLoader.isLoading$ | async"
+    [overlay]="true"
+  ></sl-page-loading>
+</sl-page>

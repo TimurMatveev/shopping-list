@@ -1,0 +1,24 @@
+<div class="sl-data-grid">
+  <div class="sl-data-grid-item">
+    <label>{{ 'common.email' | translate }}</label>
+    <a [href]="'mailto:' + user.email" class="sl-list">{{ user.email }}</a>
+  </div>
+
+  <div class="sl-data-grid-item">
+    <label>{{ 'common.gender.title' | translate }}</label>
+    <span>{{ ('common.gender.' + user.gender) | translate }}</span>
+  </div>
+
+  <div class="sl-data-grid-item mod-full">
+    <label>{{ 'users.created' | translate }}</label>
+    <span>{{ user.createdAt | date:'medium' }}</span>
+  </div>
+
+  <div
+    *ngIf="user.updatedAt as updatedAt"
+    class="sl-data-grid-item mod-full"
+  >
+    <label>{{ 'users.updated' | translate }}</label>
+    <span>{{ updatedAt | date:'medium' }}</span>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<sl-loading
+  [isLoading]="isLoading$ | async"
+  mat-dialog-content
+>
+  <h1>
+    {{ 'users.update.title' | translate }}
+  </h1>
+
+  <sl-user-form
+    #form
+    [formId]="formId"
+    [user]="user"
+    (submitted)="updateUser($event)"
+  ></sl-user-form>
+</sl-loading>
+
+<sl-form-actions
+  mat-dialog-actions
+  [formId]="formId"
+  [isLoading]="isLoading$ | async"
+  [valid]="form.userForm.valid"
+  [dirty]="form.userForm.dirty"
+  [submitLabel]="'common.update' | translate"
+  (cancelForm)="close()"
+></sl-form-actions>

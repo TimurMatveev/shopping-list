@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@use "var";
+
+:root {
+  --sl-page-wide: 56rem;
+  --sl-page-narrow: 40rem;
+}
+
+:root {
+  --carousel-width-lg: 940px;
+  --carousel-width-md: 700px;
+  --carousel-width-sm: fit-content;
+
+  --carousel-gap-lg: 36px;
+  --carousel-gap-md: 36px;
+  --carousel-gap-sm: 36px;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var.$colorBaseBackground;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@import "styles/index";

@@ -1,0 +1,14 @@
+<sl-sort
+  [sortParams]="sortParams"
+  (sortChange)="sortChange.emit($event)"
+>
+  <ng-container *slSortItem="'name'">
+    {{ 'shoppings.fields.name' | translate }}
+  </ng-container>
+  <ng-container *slSortItem="'createdAt'">
+    {{ 'shoppings.fields.created' | translate }}
+  </ng-container>
+  <ng-container *slSortItem="'updatedAt'">
+    {{ 'shoppings.fields.updated' | translate }}
+  </ng-container>
+</sl-sort>

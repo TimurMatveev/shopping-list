@@ -1,0 +1,22 @@
+<div #searchTop></div>
+
+<label
+  class="sl-select-search"
+  [class.mat-elevation-z3]="hasShadow$ | async"
+>
+  <mat-spinner
+    *ngIf="loading"
+    diameter="24"
+  ></mat-spinner>
+
+  <mat-icon
+    *ngIf="!loading"
+    [fontIcon]="icon"
+  ></mat-icon>
+
+  <input
+    #searchInput
+    [placeholder]="placeholder"
+    (input)="searchChange.emit(searchInput.value)"
+  >
+</label>

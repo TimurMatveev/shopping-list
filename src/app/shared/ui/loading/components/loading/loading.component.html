@@ -1,0 +1,11 @@
+<ng-content></ng-content>
+
+<div
+  *ngIf="isLoading"
+  class="absolute-overlay sl-loading-overlay"
+>
+  <mat-spinner
+    [diameter]="diameter"
+    class="absolute-center"
+  ></mat-spinner>
+</div>

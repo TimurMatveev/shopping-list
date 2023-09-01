@@ -1,0 +1,43 @@
+<sl-expandable-list
+  [items]="categories"
+  [trackBy]="trackByCategory"
+>
+  <div
+    *slExpansionItemHead="categories; let category"
+    class="sl-list-item"
+  >
+    <img
+      [src]="category.image || ''"
+      [alt]="category.key"
+      width="36"
+      height="36"
+    >
+
+    {{ category.name | slI18nRecord | async }}
+  </div>
+
+  <ng-container
+    *slExpansionItemActions="let category; let index = index"
+  >
+    <button
+      *ngIf="canDelete"
+      mat-icon-button
+      (click)="deleteCategory.emit({ item: category, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
+
+    <button
+      *ngIf="canEdit"
+      mat-icon-button
+      (click)="editCategory.emit({ item: category, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
+  </ng-container>
+
+  <sl-category-list-item
+    *slExpansionItemBody="categories; let category"
+    [category]="category"
+  ></sl-category-list-item>
+</sl-expandable-list>

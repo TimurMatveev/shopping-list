@@ -1,0 +1,71 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h1 class="sl-auth-form-heading">
+    {{ 'auth.login' | translate }}
+  </h1>
+
+  <div class="sl-form">
+    <mat-form-field
+      *ngIf="loginForm.controls.email as emailControl"
+      class="sl-form-control mod-full"
+    >
+      <mat-label>
+        {{ 'auth.form.email.label' | translate }}
+      </mat-label>
+      <input
+        type="email"
+        matInput
+        required
+        [formControl]="emailControl"
+        [placeholder]="'auth.form.email.placeholder' | translate"
+      >
+      <mat-error *ngIf="emailControl.invalid">
+        {{ emailControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="loginForm.controls.password as passwordControl"
+      class="sl-form-control mod-full"
+    >
+      <mat-label>
+        {{ 'auth.form.password.label' | translate }}
+      </mat-label>
+      <input
+        type="password"
+        matInput
+        required
+        [formControl]="passwordControl"
+        [placeholder]="'auth.form.password.placeholder' | translate"
+      >
+      <mat-error *ngIf="passwordControl.invalid">
+        {{ passwordControl | slControlError | async }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="sl-auth-form-actions">
+    <div class="sl-auth-form-remember">
+      <mat-checkbox [formControl]="loginForm.controls.keepLoggedIn">
+        {{ 'auth.form.remember' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <button
+      mat-button
+      type="reset"
+    >
+      {{ 'common.reset' | translate }}
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+    >
+      {{ 'auth.login' | translate }}
+    </button>
+  </div>
+</form>

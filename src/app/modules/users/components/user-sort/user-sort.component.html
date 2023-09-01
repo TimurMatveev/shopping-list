@@ -1,0 +1,17 @@
+<sl-sort
+  [sortParams]="sortParams"
+  (sortChange)="sortChange.emit($event)"
+>
+  <ng-container *slSortItem="'name'">
+    {{ 'users.sort.name' | translate }}
+  </ng-container>
+  <ng-container *slSortItem="'email'">
+    {{ 'users.sort.email' | translate }}
+  </ng-container>
+  <ng-container *slSortItem="'createdAt'">
+    {{ 'users.sort.created' | translate }}
+  </ng-container>
+  <ng-container *slSortItem="'updatedAt'">
+    {{ 'users.sort.updated' | translate }}
+  </ng-container>
+</sl-sort>

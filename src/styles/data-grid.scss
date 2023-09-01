@@ -1,0 +1,49 @@
+@use 'src/var';
+
+@mixin data-grid($columns) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: 1rem 2rem;
+}
+
+.sl-data-grid {
+  @include data-grid(2);
+
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var.$colorGrey;
+
+    & > img {
+      height: 1.25rem;
+      margin-bottom: 1px;
+      margin-top: -1px;
+    }
+
+    & > label {
+      color: var.$colorGreyDark;
+      font-weight: 500;
+    }
+
+    & > span {
+      white-space: nowrap;
+      flex: 1;
+
+      &:empty {
+        &::before {
+          content: '—';
+        }
+      }
+    }
+  }
+
+  &-divider,
+  &-item.mod-full {
+    grid-column: 1 / -1;
+  }
+
+  &-divider {
+    margin: 0.5rem 0;
+  }
+}

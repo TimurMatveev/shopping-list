@@ -1,0 +1,102 @@
+<sl-page (scrolledToBottom)="listPaginationService.loadMore()">
+  <mat-chip-listbox sticky-header>
+    <a
+      class="sl-link-reset"
+      [routerLink]="['..', 'own']"
+      routerLinkActive=""
+      #mineLink="routerLinkActive"
+    >
+      <mat-chip-option [selected]="mineLink.isActive">
+        {{ 'shoppings.own.title' | translate }}
+      </mat-chip-option>
+    </a>
+
+    <a
+      class="sl-link-reset"
+      [routerLink]="['..', 'shared']"
+      routerLinkActive=""
+      #sharedLink="routerLinkActive"
+    >
+      <mat-chip-option [selected]="sharedLink.isActive">
+        {{ 'shoppings.shared.title' | translate }}
+      </mat-chip-option>
+    </a>
+  </mat-chip-listbox>
+
+  <ng-container *ngIf="listService.items$ | async as shoppings">
+    <sl-page-header
+      *ngIf="!(listService.isInitialLoading$ | async)"
+      [title]="((type$ | async) === shoppingType.Shared ? 'shoppings.shared.list.total' : 'shoppings.own.list.total') | translate:{ count: listPaginationService.pagination.total }"
+    >
+      <sl-shopping-sort
+        [sortParams]="listSortService.params$ | async"
+        (sortChange)="listSortService.setSort($event)"
+      ></sl-shopping-sort>
+
+      <sl-shopping-filter
+        [filters]="listFilterService.filterStorage.userFilters$ | async"
+        (filterChange)="listFilterService.setFilters($event)"
+      ></sl-shopping-filter>
+    </sl-page-header>
+
+    <sl-shopping-list
+      *ngIf="shoppings.length"
+      class="sl-list"
+      [shoppings]="shoppings"
+      (editShopping)="onEditShopping($event)"
+      (deleteShopping)="onDeleteShopping($event)"
+    ></sl-shopping-list>
+
+    <sl-page-loading
+      *ngIf="listService.isLoading$ | async"
+      [overlay]="listService.isInitialLoading$ | async"
+    ></sl-page-loading>
+
+    <ng-container
+      *ngIf="listService.isEmpty$ | async"
+      [ngSwitch]="type$ | async"
+    >
+      <sl-page-empty
+        *ngSwitchCase="shoppingType.Shared"
+        [title]="'shoppings.shared.empty.title' | translate"
+      ></sl-page-empty>
+
+      <sl-page-empty
+        *ngSwitchDefault
+        [title]="((listFilterService.isFiltered$ | async) ? 'shoppings.own.empty.filteredTitle' : 'shoppings.own.empty.title') | translate"
+        [hint]="((listFilterService.isFiltered$ | async) ? 'shoppings.own.empty.filteredHint' : 'shoppings.own.empty.hint') | translate"
+      >
+        <button
+          *ngIf="(type$ | async) === shoppingType.Own && (listFilterService.isFiltered$ | async) === false"
+          mat-raised-button
+          color="primary"
+          (click)="onCreateShopping()"
+        >
+          <mat-icon fontIcon="format_list_bulleted_add"></mat-icon>
+
+          {{ 'shoppings.own.create.title' | translate }}
+        </button>
+
+        <button
+          *ngIf="listFilterService.isFiltered$ | async"
+          mat-raised-button
+          color="primary"
+          (click)="listFilterService.setFilters([])"
+        >
+          <mat-icon fontIcon="filter_alt_off"></mat-icon>
+
+          {{ 'shoppings.own.reset.title' | translate }}
+        </button>
+      </sl-page-empty>
+    </ng-container>
+
+    <ng-container [ngSwitch]="type$ | async">
+      <sl-create-button
+        *ngSwitchCase="shoppingType.Own"
+        icon="format_list_bulleted_add"
+        [matTooltip]="'shoppings.own.create.title' | translate"
+        (create)="onCreateShopping()"
+      ></sl-create-button>
+    </ng-container>
+  </ng-container>
+</sl-page>

@@ -1,0 +1,52 @@
+.sl-expandable-list {
+  &-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-actions {
+    display: none;
+    transform-origin: right;
+    color: #494949;
+    position: absolute;
+    right: 0;
+    padding: 0 1.5rem;
+    backdrop-filter: blur(8px);
+    height: 100%;
+    top: 0;
+
+    & > div {
+      display: flex;
+      gap: 0.5rem;
+      transform: scale(0.8);
+      transform-origin: right;
+    }
+  }
+
+  &-body {
+    padding-top: 0.5rem;
+  }
+}
+
+mat-expansion-panel {
+  &:hover {
+    & .sl-expandable-list-actions {
+      display: flex;
+    }
+  }
+
+  &.mat-expanded {
+    & .sl-expandable-list-actions {
+      display: flex;
+      position: static;
+      padding: 0;
+      backdrop-filter: none;
+    }
+  }
+
+  & > mat-expansion-panel-header {
+    color: inherit;
+  }
+}

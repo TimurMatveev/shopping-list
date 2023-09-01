@@ -1,0 +1,15 @@
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  & > header {
+    z-index: 1;
+  }
+
+  & > router-outlet + * {
+    display: block;
+    flex: 1;
+    overflow: auto;
+  }
+}

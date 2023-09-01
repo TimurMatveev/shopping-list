@@ -1,0 +1,35 @@
+<sl-page
+  *ngIf="listService.items$ | async as users"
+  width="narrow"
+  (scrolledToBottom)="listPaginationService.loadMore()"
+>
+  <sl-page-header [title]="'users.list.total' | translate:{ count: listPaginationService.pagination.total }">
+    <sl-user-sort
+      [sortParams]="listSortService.params$ | async"
+      (sortChange)="listSortService.setSort($event)"
+    ></sl-user-sort>
+
+    <sl-user-filter
+      [filters]="listFilterService.filterStorage.userFilters$ | async"
+      (filterChange)="listFilterService.setFilters($event)"
+    ></sl-user-filter>
+  </sl-page-header>
+
+  <sl-user-list
+    *ngIf="users.length"
+    class="sl-list"
+    [users]="users"
+    (editUser)="onEditUser($event)"
+    (deleteUser)="onDeleteUser($event)"
+  ></sl-user-list>
+
+  <sl-page-loading
+    *ngIf="listService.isLoading$ | async"
+    [overlay]="listService.isInitialLoading$ | async"
+  ></sl-page-loading>
+
+  <sl-page-empty
+    *ngIf="listService.isEmpty$ | async"
+    [title]="'users.empty.title' | translate"
+  ></sl-page-empty>
+</sl-page>

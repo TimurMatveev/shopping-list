@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <h1>
+    {{ 'users.filter.title' | translate }}
+  </h1>
+
+  <sl-user-filter-form
+    #form
+    [formId]="formId"
+    [filters]="data.filters"
+    (submitted)="close($event)"
+  ></sl-user-filter-form>
+</div>
+
+<sl-form-actions
+  mat-dialog-actions
+  [formId]="formId"
+  [valid]="form.userFilterForm.valid"
+  [dirty]="form.userFilterForm.dirty"
+  [submitLabel]="'common.filter' | translate"
+  (cancelForm)="close()"
+></sl-form-actions>

@@ -1,0 +1,15 @@
+<button
+  *ngIf="icon"
+  mat-icon-button
+  [disabled]="disabled"
+>
+  <mat-icon [fontIcon]="icon"></mat-icon>
+</button>
+
+<button
+  *ngIf="label && !icon"
+  mat-button
+  [disabled]="disabled"
+>
+  {{ label }}
+</button>

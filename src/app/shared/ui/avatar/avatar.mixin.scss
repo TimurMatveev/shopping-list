@@ -1,0 +1,11 @@
+@use 'src/var';
+
+@mixin avatar() {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var.$colorGreyLight;
+  color: var.$colorGreyDark;
+}

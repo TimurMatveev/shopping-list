@@ -1,0 +1,37 @@
+@use "@angular/material" as mat;
+@use "src/var";
+
+:host {
+  text-decoration: none;
+  color: var.$colorGreyDark;
+}
+
+.sl-dashboard-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  width: 20rem;
+  height: 100%;
+
+  &.mod-clickable {
+    @include mat.elevation-transition();
+
+    &:hover,
+    &:focus {
+      @include mat.elevation(2);
+    }
+  }
+
+  &-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+
+  &-content {
+    width: 100%;
+    color: var.$colorGrey;
+  }
+}

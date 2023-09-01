@@ -1,0 +1,44 @@
+<mat-accordion
+  *ngIf="items as items"
+  [multi]="multi"
+>
+  <ng-container *ngIf="expansionItemHead">
+    <mat-expansion-panel
+      #expansionPanel
+      *ngFor="let item of items; trackBy: trackBy; let index = index"
+      [expanded]="expansionItemHead.expanded"
+      [disabled]="expansionItemHead.disabled"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <div class="sl-expandable-list-header">
+          <ng-container
+            *ngTemplateOutlet="expansionItemHead.templateRef; context: createExpansionContext(item, index, expansionPanel)"
+          ></ng-container>
+
+          <div
+            *ngIf="expansionItemActions"
+            #actions
+            class="sl-expandable-list-actions"
+            (click)="actions !== $event.target && $event.stopPropagation()"
+          >
+            <div>
+              <ng-container
+                *ngTemplateOutlet="expansionItemActions.templateRef; context: createExpansionContext(item, index, expansionPanel)"
+              ></ng-container>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div
+        *ngIf="expansionItemBody"
+        class="sl-expandable-list-body"
+      >
+        <ng-container
+          *ngTemplateOutlet="expansionItemBody.templateRef; context: createExpansionContext(item, index, expansionPanel)"
+        ></ng-container>
+      </div>
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>

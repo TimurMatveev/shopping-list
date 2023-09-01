@@ -1,0 +1,36 @@
+<div class="sl-data-grid">
+  <div
+    *ngFor="let categoryProducts of shopping.products | keyvalue"
+    class="sl-data-grid-item"
+    [matTooltip]="categoryProducts.value | slProductsTooltip"
+  >
+    <ng-container *ngIf="categoryProducts.key | slCategoryByKey | async as category">
+      <img [src]="category.image">
+      <label>{{ category.name | slI18nRecord | async }}</label>
+    </ng-container>
+    <span>{{ 'shoppings.products.count' | translate:{ count: categoryProducts.value.length } }}</span>
+  </div>
+
+  <mat-divider class="sl-data-grid-divider"></mat-divider>
+
+  <div class="sl-data-grid-item mod-full">
+    <label>{{ 'shoppings.fields.created' | translate }}</label>
+    <span>{{ shopping.createdAt | date:'medium' }}</span>
+  </div>
+
+  <div
+    *ngIf="shopping.updatedAt"
+    class="sl-data-grid-item mod-full"
+  >
+    <label>{{ 'shoppings.fields.updated' | translate }}</label>
+    <span>{{ shopping.updatedAt | date:'medium' }}</span>
+  </div>
+
+  <div
+    *ngIf="shopping.shareWith.length"
+    class="sl-data-grid-item mod-full"
+  >
+    <label>{{ 'shoppings.fields.shared' | translate }}</label>
+    <span>{{ 'shoppings.share.count' | translate:{ count: shopping.shareWith.length } }}</span>
+  </div>
+</div>

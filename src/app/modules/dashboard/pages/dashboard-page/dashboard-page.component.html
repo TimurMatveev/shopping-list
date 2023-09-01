@@ -1,0 +1,45 @@
+<sl-page width="full">
+  <div class="sl-dashboard-grid">
+    <a
+      *ngIf="permissionArea.Category | slPermitted:permissionValue.Any | async"
+      [routerLink]="['categories']"
+      slDashboardCard
+      [name]="'categories.title' | translate"
+      imageUrl="assets/images/category.svg"
+    >
+      <span>{{ 'categories.description' | translate }}</span>
+
+      <ng-container *ngIf="permissionArea.Category | slPermittedAll:permissionValue.Any | async">
+        <br>
+        <br>
+        <strong>{{ 'categories.permissions.all' | translate }}</strong>
+      </ng-container>
+    </a>
+
+    <a
+      *ngIf="permissionArea.Shopping | slPermitted:permissionValue.Any | async"
+      [routerLink]="['shopping']"
+      slDashboardCard
+      [name]="'shoppings.title' | translate"
+      imageUrl="assets/images/shopping-cart.svg"
+    >
+      <span>{{ 'shoppings.description' | translate }}</span>
+    </a>
+
+    <a
+      *ngIf="permissionArea.User | slPermitted:permissionValue.Any | async"
+      [routerLink]="['users']"
+      slDashboardCard
+      [name]="'users.title' | translate"
+      imageUrl="assets/images/user.svg"
+    >
+      <span>{{ 'users.description' | translate }}</span>
+
+      <ng-container *ngIf="permissionArea.User | slPermittedAll:permissionValue.Any | async">
+        <br>
+        <br>
+        <strong>{{ 'users.permissions.all' | translate }}</strong>
+      </ng-container>
+    </a>
+  </div>
+</sl-page>

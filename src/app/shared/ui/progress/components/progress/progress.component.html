@@ -1,0 +1,18 @@
+<mat-progress-spinner
+  class="sl-progress-empty"
+  [diameter]="diameter"
+  [value]="100"
+></mat-progress-spinner>
+
+<mat-progress-spinner
+  [diameter]="diameter"
+  [value]="value"
+></mat-progress-spinner>
+
+<div
+  *ngIf="value >= 100"
+  @fadeInOut
+  class="sl-progress-complete"
+>
+  <mat-icon fontIcon="check"></mat-icon>
+</div>

@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>
+  {{ confirmData.title }}
+</h2>
+
+<mat-dialog-content
+  *ngIf="confirmData.body"
+  [innerHTML]="confirmData.body"
+></mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    (click)="modalRef.close(false)"
+  >
+    {{ confirmData.reject }}
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="modalRef.close(true)"
+  >
+    {{ confirmData.confirm }}
+  </button>
+</mat-dialog-actions>

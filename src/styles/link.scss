@@ -1,0 +1,15 @@
+.sl-link {
+  color: #3f51b5;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.sl-link-reset {
+  text-decoration: none;
+  cursor: pointer;
+}

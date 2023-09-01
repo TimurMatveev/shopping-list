@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.sl-category-select {
+  &-trigger-img {
+    transform: translate(0px, 0.4rem);
+  }
+
+  &-trigger-text {
+    display: inline-block;
+    transform: translate(0.5rem, -0.5rem);
+  }
+
+  &-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

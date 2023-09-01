@@ -1,0 +1,25 @@
+<sl-loading
+  [isLoading]="isLoading$ | async"
+  mat-dialog-content
+>
+  <h1>
+    {{ 'shoppings.update.title' | translate }}
+  </h1>
+
+  <sl-shopping-form
+    #form
+    [formId]="formId"
+    [shopping]="data.shopping"
+    (submitted)="updateShopping($event)"
+  ></sl-shopping-form>
+</sl-loading>
+
+<sl-form-actions
+  mat-dialog-actions
+  [formId]="formId"
+  [isLoading]="isLoading$ | async"
+  [valid]="form.shoppingForm.valid"
+  [dirty]="form.shoppingForm.dirty"
+  [submitLabel]="'common.update' | translate"
+  (cancelForm)="close()"
+></sl-form-actions>

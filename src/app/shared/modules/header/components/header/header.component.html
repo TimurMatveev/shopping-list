@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <sl-breadcrumbs [trackBy]="trackByBreadcrumb">
+    <a
+      *slBreadcrumb="let breadcrumb"
+      sl-breadcrumb-link
+      [icon]="breadcrumb.icon"
+      [label]="breadcrumb.labelI18n ? (breadcrumb.labelI18n | translate) : breadcrumb.label"
+      [disabled]="breadcrumb.disabled"
+      [loading]="breadcrumb.loading"
+      [routerLink]="[breadcrumb.url]"
+    ></a>
+  </sl-breadcrumbs>
+
+  <sl-user-menu
+    [user]="user"
+    (logout)="logout.emit()"
+  ></sl-user-menu>
+</mat-toolbar>

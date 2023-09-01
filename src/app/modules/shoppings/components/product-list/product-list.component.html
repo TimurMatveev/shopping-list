@@ -1,0 +1,46 @@
+<sl-expandable-list
+  *ngIf="products | keyvalue as productsKeyValue"
+  [items]="productsKeyValue"
+  [trackBy]="trackByProductKeyValue"
+>
+  <ng-container *slExpansionItemHead="productsKeyValue; expanded: true; disabled: editMode; let productKeyValue; let panel = panel">
+    <div
+      *ngIf="productKeyValue.key | slCategoryByKey | async as category"
+      class="sl-list-item"
+    >
+      <sl-avatar
+        [url]="category.image"
+        [name]="category.name | slI18nRecord | async"
+        [size]="40"
+      ></sl-avatar>
+
+      <div class="sl-ellipses">
+        {{ category.name | slI18nRecord | async }}
+      </div>
+
+      <sl-progress
+        *ngIf="editMode"
+        [value]="(productKeyValue.value | slProductsProgress) * 100"
+      ></sl-progress>
+    </div>
+  </ng-container>
+
+  <div
+    *slExpansionItemBody="productsKeyValue; let productKeyValue"
+    class="sl-product-list-item"
+  >
+    <mat-checkbox
+      *ngFor="let product of productKeyValue.value; trackBy: trackByProduct"
+      class="sl-product-checkbox"
+      [disabled]="!editMode"
+      [checked]="product.bought"
+      (change)="productBoughtChange.emit({
+        category: productKeyValue.key,
+        product: product,
+        bought: $event.checked
+      })"
+    >
+      {{ product.name }}
+    </mat-checkbox>
+  </div>
+</sl-expandable-list>

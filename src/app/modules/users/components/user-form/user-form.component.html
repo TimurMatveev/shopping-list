@@ -1,0 +1,55 @@
+<form
+  [id]="formId"
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="userForm.controls.email as emailControl"
+    class="sl-user-form-full-row"
+  >
+    <mat-label>
+      {{ 'users.form.email.label' | translate }}
+    </mat-label>
+    <input
+      matInput
+      required
+      [formControl]="emailControl"
+      [placeholder]="'users.form.email.placeholder' | translate"
+    >
+    <mat-error *ngIf="emailControl.invalid">
+      {{ emailControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="userForm.controls.name as nameControl">
+    <mat-label>
+      {{ 'users.form.name.label' | translate }}
+    </mat-label>
+    <input
+      matInput
+      required
+      [formControl]="nameControl"
+      [placeholder]="'users.form.name.placeholder' | translate"
+    >
+    <mat-error *ngIf="nameControl.invalid">
+      {{ nameControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="userForm.controls.role as roleControl">
+    <mat-label>
+      {{ 'users.form.role.label' | translate }}
+    </mat-label>
+    <mat-select [formControl]="roleControl">
+      <mat-option
+        *ngFor="let role of roles; trackBy: trackByRole"
+        [value]="role"
+      >
+        {{ ('role.' + role) | translate }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="roleControl.invalid">
+      {{ roleControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+</form>

@@ -1,0 +1,23 @@
+@use "src/var";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var.$colorGrey;
+  margin: 0 -1rem 0.5rem;
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var.$colorBaseBackground;
+}
+
+.sl-page-header {
+  &-title,
+  &-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

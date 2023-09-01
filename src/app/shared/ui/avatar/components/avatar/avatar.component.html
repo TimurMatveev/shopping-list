@@ -1,0 +1,19 @@
+<img
+  *ngIf="url && !imageError; else fallbackTemplate"
+  [ngSrc]="url"
+  [alt]="name"
+  [width]="size"
+  [height]="size"
+  (error)="imageError = $event"
+>
+
+<ng-template #fallbackTemplate>
+  <ng-container *ngIf="name">
+    {{ name | slAbbreviate }}
+  </ng-container>
+
+  <mat-icon
+    *ngIf="!name"
+    fontIcon="person"
+  ></mat-icon>
+</ng-template>

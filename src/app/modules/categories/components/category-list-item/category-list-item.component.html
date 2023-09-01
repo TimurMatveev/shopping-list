@@ -1,0 +1,14 @@
+<div class="sl-data-grid">
+  <div
+    *ngFor="let language of languages; trackBy: trackByLanguage"
+    class="sl-data-grid-item"
+  >
+    <label>{{ 'categories.form.name.label' | translate:{language} }}</label>
+    <span>{{ category.name | slI18nRecord:language | async }}</span>
+  </div>
+
+  <div class="sl-data-grid-item mod-full">
+    <label>{{ 'categories.form.tags.label' | translate }}</label>
+    <span>{{ category | slCategoryTags }}</span>
+  </div>
+</div>

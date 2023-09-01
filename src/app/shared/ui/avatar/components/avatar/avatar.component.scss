@@ -1,0 +1,5 @@
+@use '../../avatar.mixin';
+
+:host {
+  @include avatar.avatar();
+}

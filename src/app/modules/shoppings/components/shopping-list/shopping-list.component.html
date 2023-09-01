@@ -1,0 +1,65 @@
+<sl-expandable-list
+  [items]="shoppings"
+  [trackBy]="trackByShopping"
+>
+  <div
+    *slExpansionItemHead="shoppings; let shopping"
+    class="sl-list-item"
+  >
+    <sl-shopping-bullets [products]="shopping.products"></sl-shopping-bullets>
+
+    <div class="sl-ellipses">
+      <a
+        class="sl-link"
+        [routerLink]="[shopping.id]"
+        [matTooltip]="shopping.name"
+        (click)="$event.stopPropagation()"
+      >
+        {{ shopping.name }}
+      </a>
+    </div>
+
+    <ng-container [ngSwitch]="shopping.shareWith.length">
+      <mat-icon
+        *ngSwitchCase="0"
+        fontIcon="person"
+        [matTooltip]="'shoppings.share.none' | translate"
+      ></mat-icon>
+
+      <mat-icon
+        *ngSwitchCase="1"
+        fontIcon="group"
+        [matTooltip]="'shoppings.share.one' | translate"
+      ></mat-icon>
+
+      <mat-icon
+        *ngSwitchDefault
+        fontIcon="group_add"
+        [matTooltip]="'shoppings.share.many' | translate:{ count: shopping.shareWith.length }"
+      ></mat-icon>
+    </ng-container>
+
+    <sl-shopping-status [status]="shopping.status"></sl-shopping-status>
+  </div>
+
+  <ng-container *slExpansionItemActions="let shopping; let index = index">
+    <button
+      mat-icon-button
+      (click)="deleteShopping.emit({ item: shopping, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      (click)="editShopping.emit({ item: shopping, index: index, event: $event })"
+    >
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
+  </ng-container>
+
+  <sl-shopping-list-item
+    *slExpansionItemBody="shoppings; let shopping"
+    [shopping]="shopping"
+  ></sl-shopping-list-item>
+</sl-expandable-list>

@@ -1,0 +1,22 @@
+.sl-select {
+  &-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &-hidden {
+      display: none!important;
+    }
+  }
+
+  &-trigger {
+    &-img {
+      transform: translate(0px, 0.4rem);
+    }
+
+    &-text {
+      display: inline-block;
+      transform: translate(0.5rem, -0.5rem);
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<sl-loading
+  [isLoading]="isLoading$ | async"
+  mat-dialog-content
+>
+  <h1>
+    {{ 'categories.update.title' | translate }}
+  </h1>
+
+  <sl-category-form
+    #form
+    [formId]="formId"
+    [category]="category"
+    (submitted)="updateCategory($event)"
+  ></sl-category-form>
+</sl-loading>
+
+<sl-form-actions
+  mat-dialog-actions
+  [formId]="formId"
+  [isLoading]="isLoading$ | async"
+  [valid]="form.categoryForm.valid"
+  [dirty]="form.categoryForm.dirty"
+  [submitLabel]="'common.update' | translate"
+  (cancelForm)="close()"
+></sl-form-actions>

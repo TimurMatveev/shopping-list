@@ -1,0 +1,21 @@
+<div class="sl-error-block-message sl-title">
+  {{ errorMessage }}
+</div>
+
+<img
+  class="sl-error-block-image"
+  [src]="errorImageUrl"
+  [alt]="errorMessage"
+>
+
+<a
+  type="button"
+  mat-raised-button
+  color="primary"
+  class="sl-error-block-button"
+  [routerLink]="['/']"
+>
+  <mat-icon fontIcon="home"></mat-icon>
+
+  {{ 'error.goHome' | translate }}
+</a>

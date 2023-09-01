@@ -1,0 +1,19 @@
+<button
+  type="button"
+  mat-icon-button
+  [color]="sortParams ? 'primary' : null"
+  [matMenuTriggerFor]="sortMenu"
+>
+  <mat-icon fontIcon="sort"></mat-icon>
+</button>
+
+<mat-menu #sortMenu="matMenu">
+  <button
+    *ngFor="let sortItem of sortItems; trackBy: trackBySortItem"
+    mat-menu-item
+    (click)="setSortKey(sortItem.key)"
+  >
+    <mat-icon [fontIcon]="getSortIcon(sortItem.key)"></mat-icon>
+    <ng-container *ngTemplateOutlet="sortItem.templateRef"></ng-container>
+  </button>
+</mat-menu>

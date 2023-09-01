@@ -1,0 +1,14 @@
+<sl-sort
+  [sortParams]="sortParams"
+  (sortChange)="sortChange.emit($event)"
+>
+  <ng-container *slSortItem="'key'">
+    {{ 'categories.sort.key' | translate }}
+  </ng-container>
+
+  <ng-container *ngFor="let language of languages; trackBy: trackByLanguage">
+    <ng-container *slSortItem="'name.' + language">
+      {{ 'categories.sort.name' | translate:{language} }}
+    </ng-container>
+  </ng-container>
+</sl-sort>

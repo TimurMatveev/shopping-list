@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-content>
+    <div class="sl-data-grid">
+      <div class="sl-data-grid-item mod-full">
+        <label>{{ 'shoppings.fields.created' | translate }}</label>
+        <span>{{ shopping.createdAt | date:'medium' }}</span>
+      </div>
+
+      <div
+        *ngIf="shopping.updatedAt"
+        class="sl-data-grid-item mod-full"
+      >
+        <label>{{ 'shoppings.fields.updated' | translate }}</label>
+        <span>{{ shopping.updatedAt | date:'medium' }}</span>
+      </div>
+
+      <div
+        *ngIf="shopping.shareWith.length"
+        class="sl-data-grid-item mod-full"
+      >
+        <label>{{ 'shoppings.fields.shared' | translate }}</label>
+        <span>{{ 'shoppings.share.count' | translate:{ count: shopping.shareWith.length } }}</span>
+      </div>
+
+      <sl-product-list
+        [products]="shopping.products"
+        class="sl-data-grid-item mod-full"
+      ></sl-product-list>
+    </div>
+  </mat-card-content>
+</mat-card>

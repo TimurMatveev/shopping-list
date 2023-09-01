@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+
+:host {
+  width: 96vw;
+  max-width: 40rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  @include mat.elevation(12);
+}
+
+.sl-auth-form {
+  &-heading {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  &-actions {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &-remember {
+    flex: 1;
+  }
+}

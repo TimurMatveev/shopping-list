@@ -1,0 +1,82 @@
+<form
+  [id]="formId"
+  [formGroup]="shoppingForm"
+  class="sl-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="shoppingForm.controls.name as nameControl"
+    class="sl-form-control mod-full"
+  >
+    <mat-label>
+      {{ 'shoppings.form.name.label' | translate }}
+    </mat-label>
+    <input
+      matInput
+      required
+      [formControl]="nameControl"
+      [placeholder]="'shoppings.form.name.placeholder' | translate"
+    >
+    <mat-error *ngIf="nameControl.invalid">
+      {{ nameControl | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <sl-form-array
+    class="sl-form-control mod-full"
+    [formArray]="shoppingForm.controls.categories"
+    [createControl]="createCategoryFormGroup"
+    [minLength]="minProductsCount"
+    [addText]="'shoppings.form.product.add' | translate"
+  >
+    <ng-container
+      *slFormArrayItem="shoppingForm.controls.categories; let categoryFormGroup"
+      [formGroup]="categoryFormGroup"
+    >
+      <sl-category-select
+        class="sl-form-control mod-span-4"
+        [control]="categoryFormGroup.controls.category"
+        [label]="'shoppings.form.product.category.label' | translate"
+      ></sl-category-select>
+
+      <mat-form-field
+        *ngIf="categoryFormGroup.controls.products as productsControl"
+        [slCategoryByTag]="productInput.value"
+        (tagMatch)="categoryFormGroup.controls.category.setValue($event)"
+        class="sl-form-control mod-span-6"
+      >
+        <mat-label>
+          {{ 'shoppings.form.product.name.label' | translate }}
+        </mat-label>
+        <mat-chip-grid
+          #chipGrid
+          #arrayFormControl="ArrayFormControl"
+          required
+          [slArrayFormControl]="productsControl"
+          [formControl]="productsControl"
+        >
+          <mat-chip-row
+            *ngFor="let name of productsControl.value; trackBy: trackByName; let index = index"
+            (removed)="arrayFormControl.removeItem(index)"
+          >
+            {{ name }}
+
+            <button matChipRemove>
+              <mat-icon fontIcon="cancel"></mat-icon>
+            </button>
+          </mat-chip-row>
+          <input
+            #productInput
+            [placeholder]="'shoppings.form.product.name.placeholder' | translate"
+            [matChipInputFor]="chipGrid"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="arrayFormControl.addItem($event.value.trim()); $event.chipInput.clear()"
+          />
+        </mat-chip-grid>
+        <mat-error *ngIf="productsControl.invalid">
+          {{ productsControl | slControlError | async }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+  </sl-form-array>
+</form>

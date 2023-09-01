@@ -1,0 +1,28 @@
+<input
+  #urlInput
+  type="url"
+  matInput
+  [required]="required"
+  [placeholder]="placeholder"
+  [disabled]="previewLoading"
+  (input)="onUrlInput(urlInput.value, urlInput.validity.valid)"
+  (focusin)="onFocusIn()"
+  (focusout)="onFocusOut($event)"
+>
+
+<img
+  *ngIf="previewUrl; else imageIcon"
+  [src]="previewUrl"
+  width="40"
+  height="40"
+  class="sl-img-src-control-preview"
+  (load)="onPreviewLoaded()"
+  (error)="onPreviewError()"
+>
+
+<ng-template #imageIcon>
+  <mat-icon
+    [fontIcon]="hasLoadError ? 'broken_image' : 'image'"
+    class="sl-img-src-control-icon"
+  ></mat-icon>
+</ng-template>

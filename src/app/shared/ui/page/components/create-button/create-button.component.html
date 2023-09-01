@@ -1,0 +1,8 @@
+<button
+  type="button"
+  mat-fab
+  color="primary"
+  (click)="$event.stopPropagation(); create.emit($event)"
+>
+  <mat-icon [fontIcon]="icon"></mat-icon>
+</button>

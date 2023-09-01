@@ -1,0 +1,10 @@
+<ng-container *ngFor="let breadcrumb of breadcrumbsService.breadcrumbs$ | async as breadcrumbs; trackBy: trackBy; let index = index; let last = last">
+  <ng-container
+    [ngTemplateOutlet]="breadcrumbDirective?.templateRef || null"
+    [ngTemplateOutletContext]="{ $implicit: breadcrumb, index: index, breadcrumbs: breadcrumbs }"
+  ></ng-container>
+
+  <span *ngIf="!last">
+    {{ separator }}
+  </span>
+</ng-container>

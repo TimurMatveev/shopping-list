@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <h1>
+    {{ 'shoppings.filter.title' | translate }}
+  </h1>
+
+  <sl-shopping-filter-form
+    #form
+    [formId]="formId"
+    [filters]="data.filters"
+    (submitted)="close($event)"
+  ></sl-shopping-filter-form>
+</div>
+
+<sl-form-actions
+  mat-dialog-actions
+  [formId]="formId"
+  [valid]="form.shoppingFilterForm.valid"
+  [dirty]="form.shoppingFilterForm.dirty"
+  [submitLabel]="'common.filter' | translate"
+  (cancelForm)="close()"
+></sl-form-actions>

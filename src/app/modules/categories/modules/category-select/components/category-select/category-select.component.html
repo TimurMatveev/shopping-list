@@ -1,0 +1,50 @@
+<mat-form-field class="sl-select">
+  <mat-label>
+    {{ label }}
+  </mat-label>
+
+  <mat-select
+    [formControl]="control"
+    (opened)="selectSearch.focus()"
+  >
+    <mat-select-trigger *ngIf="selectedCategory$ | async as selectedCategory">
+      <img
+        [src]="selectedCategory.image || ''"
+        [alt]="selectedCategory.key"
+        width="34"
+        height="34"
+        class="sl-select-trigger-img"
+      >
+
+      <span class="sl-select-trigger-text">
+        {{ selectedCategory.name | slI18nRecord | async }}
+      </span>
+    </mat-select-trigger>
+
+    <sl-select-search
+      #selectSearch
+      [placeholder]="'categories.select.search' | translate"
+      (searchChange)="search$.next($event.trim().toLowerCase())"
+    ></sl-select-search>
+
+    <mat-option
+      *ngFor="let category of categories$ | async; trackBy: trackByCategory"
+      [value]="category.key"
+    >
+      <div class="sl-select-option">
+        <img
+          [src]="category.image || ''"
+          [alt]="category.key"
+          width="32"
+          height="32"
+        >
+
+        <div [innerHTML]="category.name | slI18nRecord | async | slSearchHighlight:(search$ | async)"></div>
+      </div>
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="control.invalid">
+    {{ control | slControlError | async }}
+  </mat-error>
+</mat-form-field>

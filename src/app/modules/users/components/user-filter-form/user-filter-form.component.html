@@ -1,0 +1,76 @@
+<form
+  [id]="formId"
+  [formGroup]="userFilterForm"
+  class="sl-form"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field
+    *ngIf="userFilterForm.controls.createdAt as createdAtGroup"
+    class="sl-form-control"
+  >
+    <mat-label>
+      {{ 'users.filter.createAt.label' | translate }}
+    </mat-label>
+    <mat-date-range-input
+      [formGroup]="createdAtGroup"
+      [rangePicker]="picker"
+    >
+      <input
+        matStartDate
+        [formControl]="createdAtGroup.controls.start"
+        [placeholder]="'users.filter.createAt.start.placeholder' | translate"
+      >
+      <input
+        matEndDate
+        [formControl]="createdAtGroup.controls.end"
+        [placeholder]="'users.filter.createAt.end.placeholder' | translate"
+      >
+    </mat-date-range-input>
+    <mat-hint>
+      {{ 'form.dateRange.hint' | translate }}
+    </mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="createdAtGroup.invalid">
+      {{ createdAtGroup | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="userFilterForm.controls.updatedAt as updatedAtGroup"
+    class="sl-form-control"
+  >
+    <mat-label>
+      {{ 'users.filter.updatedAt.label' | translate }}
+    </mat-label>
+    <mat-date-range-input
+      [formGroup]="updatedAtGroup"
+      [rangePicker]="picker"
+    >
+      <input
+        matStartDate
+        [formControl]="updatedAtGroup.controls.start"
+        [placeholder]="'users.filter.updatedAt.start.placeholder' | translate"
+      >
+      <input
+        matEndDate
+        [formControl]="updatedAtGroup.controls.end"
+        [placeholder]="'users.filter.updatedAt.end.placeholder' | translate"
+      >
+    </mat-date-range-input>
+    <mat-hint>
+      {{ 'form.dateRange.hint' | translate }}
+    </mat-hint>
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="updatedAtGroup.invalid">
+      {{ updatedAtGroup | slControlError | async }}
+    </mat-error>
+  </mat-form-field>
+</form>

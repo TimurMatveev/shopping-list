@@ -1,0 +1,56 @@
+<div
+  #controlArray
+  class="sl-form-array"
+  cdkDropList
+  (cdkDropListDropped)="swapControls($event.previousIndex, $event.currentIndex)"
+>
+  <div
+    *ngFor="let control of formArray.controls; trackBy: trackByControl; let index = index"
+    cdkDrag
+    cdkDragLockAxis="y"
+    [cdkDragBoundary]="controlArray"
+    class="sl-form"
+  >
+    <button
+      type="button"
+      mat-icon-button
+      class="sl-form-array-drag"
+      cdkDragHandle
+    >
+      <mat-icon fontIcon="drag_indicator"></mat-icon>
+    </button>
+
+    <div
+      class="sl-form mod-cols-10 sl-form-control mod-span-10"
+    >
+      <ng-container
+        *ngTemplateOutlet="formArrayItemDirective.templateRef; context: { $implicit: control, index: index }"
+      ></ng-container>
+    </div>
+
+    <button
+      type="button"
+      mat-icon-button
+      class="sl-form-array-delete"
+      [disabled]="formArray.length <= minLength"
+      (click)="formArray.removeAt(index)"
+    >
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="sl-form">
+  <button
+    type="button"
+    mat-button
+    color="primary"
+    class="sl-form-array-add"
+    [disabled]="formArray.length >= maxLength"
+    (click)="addControl()"
+  >
+    <mat-icon [fontIcon]="addIcon"></mat-icon>
+
+    {{ addText }}
+  </button>
+</div>

@@ -1,0 +1,14 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--sl-status-color, #3f3f3f);
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,38 @@
+<sl-page
+  *ngIf="listService.items$ | async as categories"
+  width="narrow"
+  (scrolledToBottom)="listPaginationService.loadMore()"
+>
+  <sl-page-header [title]="'categories.list.total' | translate:{ count: listPaginationService.pagination.total }">
+    <sl-category-sort
+      [sortParams]="listSortService.params$ | async"
+      (sortChange)="listSortService.setSort($event)"
+    ></sl-category-sort>
+  </sl-page-header>
+
+  <sl-category-list
+    *ngIf="categories.length"
+    class="sl-list"
+    [categories]="categories"
+    [canEdit]="permissionArea.Category | slPermitted:permissionValue.Update | async"
+    [canDelete]="permissionArea.Category | slPermitted:permissionValue.Delete | async"
+    (editCategory)="onEditCategory($event)"
+    (deleteCategory)="onDeleteCategory($event)"
+  ></sl-category-list>
+
+  <sl-page-loading
+    *ngIf="listService.isLoading$ | async"
+    [overlay]="listService.isInitialLoading$ | async"
+  ></sl-page-loading>
+
+  <sl-page-empty
+    *ngIf="listService.isEmpty$ | async"
+    [title]="'categories.empty.title' | translate"
+    [hint]="'categories.empty.hint' | translate"
+  ></sl-page-empty>
+
+  <sl-create-button
+    *ngIf="permissionArea.Category | slPermitted:permissionValue.Create | async"
+    (create)="onCreateCategory()"
+  ></sl-create-button>
+</sl-page>

@@ -1,0 +1,14 @@
+<div
+  class="sl-page"
+  [ngClass]="'mod-' + width"
+>
+  <header class="sl-page-upper-header">
+    <ng-content select="[sticky-header]"></ng-content>
+  </header>
+
+  <ng-content></ng-content>
+</div>
+
+<ng-content select="[outside-page]"></ng-content>
+
+<div #bottom></div>

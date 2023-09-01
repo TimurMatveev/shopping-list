@@ -1,0 +1,5 @@
+<sl-avatar-list
+  [avatars]="products | slShoppingCategories | async | slCategoryAvatarList | async"
+  [limit]="limit"
+  [getTooltipText]="getCategoriesTooltipText"
+></sl-avatar-list>

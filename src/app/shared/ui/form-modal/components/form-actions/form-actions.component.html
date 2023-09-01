@@ -1,0 +1,27 @@
+<button
+  *ngIf="canReset"
+  mat-button
+  type="reset"
+  [attr.form]="formId"
+  [disabled]="isLoading"
+>
+  {{ resetLabel || ('common.reset' | translate) }}
+</button>
+
+<button
+  mat-button
+  type="button"
+  (click)="cancelForm.emit($event)"
+>
+  {{ cancelLabel || ('common.cancel' | translate) }}
+</button>
+
+<button
+  mat-flat-button
+  type="submit"
+  color="primary"
+  [attr.form]="formId"
+  [disabled]="isLoading || !valid"
+>
+  {{ submitLabel || ('common.submit' | translate) }}
+</button>

@@ -1,0 +1,27 @@
+<mat-spinner
+  *ngIf="authService.isLoading$ | async; else authTemplate"
+></mat-spinner>
+
+<ng-template #authTemplate>
+  <sl-login-form
+    *ngIf="!isSingUp"
+    (submitted)="onLogin($event)"
+  ></sl-login-form>
+
+  <sl-sign-up-form
+    *ngIf="isSingUp"
+    (submitted)="onSignUp($event)"
+  ></sl-sign-up-form>
+
+  <div class="sl-auth-page-toggle">
+    <div>
+      {{ (isSingUp ? 'auth.toggle.toLogin.hint' : 'auth.toggle.toSignUp.hint') | translate }}
+    </div>
+    <a
+      class="sl-link"
+      (click)="isSingUp = !isSingUp"
+    >
+      {{ (isSingUp ? 'auth.toggle.toLogin.action' : 'auth.toggle.toSignUp.action') | translate }}
+    </a>
+  </div>
+</ng-template>
